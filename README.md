@@ -18,6 +18,7 @@ df = DataFrame(:person=>["bob","phil","nick"],:london=>[2,2,1],:spain=>[2,1,1])
 ### Julia solution
 
 <details>
+
 ```julia
 function row_spread(row)
     dict = Dict{String, Int}()
@@ -35,4 +36,5 @@ end
 
 new_df = reduce(vcat, row_spread(row) for row in eachrow(df))
 ```
+
 </details>
