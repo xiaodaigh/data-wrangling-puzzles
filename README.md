@@ -16,6 +16,7 @@ df = DataFrame(:person=>["bob","phil","nick"],:london=>[2,2,1],:spain=>[2,1,1])
 ```
 
 ### Julia solution
+
 <detail>
 ```julia
 function row_spread(row)
