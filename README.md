@@ -130,7 +130,12 @@ for k = 1:maximum(df.id)
 
 <details>
     <summary> Sample Data </summary>
-julia> df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status = [1,2,3,1,2,1,1])
+
+```julia
+df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status = [1,2,3,1,2,1,1])
+```
+
+```
 7×3 DataFrame
 │ Row │ id    │ age   │ status │
 │     │ Int64 │ Int64 │ Int64  │
@@ -142,7 +147,7 @@ julia> df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status
 │ 5   │ 2     │ 29    │ 2      │
 │ 6   │ 3     │ 22    │ 1      │
 │ 7   │ 4     │ 71    │ 1      │
-
+```
 </details>
 
 <details>
