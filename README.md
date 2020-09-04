@@ -75,7 +75,6 @@ I am trying to mimic the pivot_wider function in R:
 
 `wide %>% pivot_wider(names_from = cname, values_from = c(val1,val2))`
 
-```
 ===  ===  ===  ==========  ==========  ==========  ==========
   x    a    b      val1_c      val1_d      val2_c      val2_d
 ===  ===  ===  ==========  ==========  ==========  ==========
@@ -115,6 +114,7 @@ Any hints/guidance on how to implement selection conditions on groupeddataframes
 
 Thanks a lot!
 
+```
 using DataFrames
 
 # generate sample dataframe
@@ -125,6 +125,7 @@ df_result = copy(df[1:2,:]; copycols=true);
 
 for k = 1:maximum(df.id)
 ```
+
 </details>
 
 <details>
