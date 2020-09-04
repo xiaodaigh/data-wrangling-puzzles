@@ -152,6 +152,7 @@ df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status = [1,2
 
 <details>
     <summary> Julia Solutions </summary>
+    ```julia
     using Pipe, PairAsPipe, DataFramesMeta
 df_result = @pipe df |>
     groupby(_, :id) |>
@@ -162,4 +163,5 @@ df_result = @pipe df |>
     @where(_, :status1and2 .== 2, :not_wokring_age .== 0) |>
     @select(_, :id) |>
     innerjoin(_, df; on = :id)
+    ```
 </details>
