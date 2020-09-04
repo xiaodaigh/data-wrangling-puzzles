@@ -94,3 +94,66 @@ I am trying to mimic the pivot_wider function in R:
 ===  ===  ===  ==========  ==========  ==========  ==========
 ```
 </details>
+
+
+## Puzzle 3
+
+<details>
+<summary>Keep only certain rows based on data in group</summary>
+
+I need to select groups of observations from a large dataframe (about 2.9 mio rows) using a number of conditions which apply to different observations in each group (so I cannot select on individual rows only).
+
+Using a small dataframe as a starting point, I wrote an algorithm which applies the conditions and generates the result dataframe with my desired groups within a loop. See mwe below.
+
+If I apply this loop to the large dataframe, performance becomes a (serious) problem.
+
+I haven’t used the split/apply/combine approach before so I am learning about it right now. I worked through the documentation but I haven’t been able to write code for my problem yet.
+
+For example, I am struggling to understand how to select different rows of groupeddataframes. I figured out how to get the age of the status1 row select(combine(first, gdf), :status => :obs1_status) but not for the status2 row.
+
+Any hints/guidance on how to implement selection conditions on groupeddataframes using combine/select/transform commands? (I.e. generate df_result in a faster way?)
+
+Thanks a lot!
+
+using DataFrames
+
+# generate sample dataframe
+df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status = [1,2,3,1,2,1,1])
+
+# initialize result dataframe
+df_result = copy(df[1:2,:]; copycols=true);
+
+for k = 1:maximum(df.id)
+```
+</details>
+
+<details>
+    <summary> Sample Data </summary>
+julia> df = DataFrame(id = [1,1,1,2,2,3,4], age = [53,52,17,31,29,22,71], status = [1,2,3,1,2,1,1])
+7×3 DataFrame
+│ Row │ id    │ age   │ status │
+│     │ Int64 │ Int64 │ Int64  │
+├─────┼───────┼───────┼────────┤
+│ 1   │ 1     │ 53    │ 1      │
+│ 2   │ 1     │ 52    │ 2      │
+│ 3   │ 1     │ 17    │ 3      │
+│ 4   │ 2     │ 31    │ 1      │
+│ 5   │ 2     │ 29    │ 2      │
+│ 6   │ 3     │ 22    │ 1      │
+│ 7   │ 4     │ 71    │ 1      │
+
+</details>
+
+<details>
+    <summary> Julia Solutions </summary>
+    using Pipe, PairAsPipe, DataFramesMeta
+df_result = @pipe df |>
+    groupby(_, :id) |>
+    combine(_,
+        @pap(status1and2 = sum(in(1:2), :status)),
+        @pap(not_wokring_age = sum(:status .== 1 .& (:age .< 25 .| :age .> 61)))
+    ) |>
+    @where(_, :status1and2 .== 2, :not_wokring_age .== 0) |>
+    @select(_, :id) |>
+    innerjoin(_, df; on = :id)
+</details>
