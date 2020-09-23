@@ -167,3 +167,25 @@ df_result = @pipe df |>
 ```
 
 </details>
+
+## Pivot wider two columns
+
+```
+julia> df = DataFrame(t = [:a, :b, :c, :a, :b, :c], x = 1:6, y = 11:16)
+6×3 DataFrame
+│ Row │ t      │ x     │ y     │
+│     │ Symbol │ Int64 │ Int64 │
+├─────┼────────┼───────┼───────┤
+│ 1   │ a      │ 1     │ 11    │
+│ 2   │ b      │ 2     │ 12    │
+│ 3   │ c      │ 3     │ 13    │
+│ 4   │ a      │ 4     │ 14    │
+│ 5   │ b      │ 5     │ 15    │
+│ 6   │ c      │ 6     │ 16    │
+so that it becomes
+│ Row │ x_a   │ x_b   │ x_c   │ y_a   │ y_b   │ y_c   │
+│     │ Int64 │ Int64 │ Int64 │ Int64 │ Int64 │ Int64 │
+├─────┼───────┼───────┼───────┼───────┼───────┼───────┤
+│ 1   │ 1     │ 2     │ 3     │ 11    │ 12    │ 13    │
+│ 2   │ 4     │ 5     │ 6     │ 14    │ 15    │ 16    │
+```
